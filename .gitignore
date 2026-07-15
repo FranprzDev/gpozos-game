@@ -1,0 +1,4 @@
+node_modules/
+.next/
+gpozos.sqlite
+.DS_Store
