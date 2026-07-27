@@ -307,15 +307,6 @@ export default function Home() {
           <svg className="landing-network" viewBox="0 0 500 560" aria-hidden="true"><g className="landing-pipes"><path d="M92 105L180 220L105 365" /><path d="M250 105L180 220L315 350L250 470" /><path d="M408 105L315 350L410 445" /><path d="M92 105L315 350" /><path d="M250 105L105 365" /></g><g className="landing-nodes"><circle cx="92" cy="105" r="15"/><circle cx="250" cy="105" r="15"/><circle cx="408" cy="105" r="15"/><circle cx="180" cy="220" r="11"/><circle cx="105" cy="365" r="11"/><circle cx="315" cy="350" r="11"/><circle cx="410" cy="445" r="11"/></g></svg>
           <div className="three-d-network" aria-label="Cuatro pozos conectados de Delfín Gallo"><div className="pipe-bridge bridge-a"/><div className="pipe-bridge bridge-b"/><div className="pipe-bridge bridge-c"/>{["45", "138", "122", "41"].map((well) => <div className={`mini-well well-${well}`} key={well}><div className="mini-cap"><i/><i/><i/></div><div className="mini-body"><b>POZO {well}</b><span/></div><div className="mini-shadow"/></div>)}<span className="network-tag">RED ACTUAL · DELFÍN GALLO</span></div>
           <div className="art-label label-top">RED DE POZOS<br /><b>DELFÍN GALLO</b></div>
-          <div className="art-card">
-            <strong>PL</strong>
-            <span>
-              Encontrá la
-              <br />
-              mejor combinación
-            </span>
-          </div>
-          <div className="art-stat"><b>04</b><span>pozos<br />conectados</span></div>
         </div>
       </main>
     );
