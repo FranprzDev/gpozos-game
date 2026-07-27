@@ -309,13 +309,6 @@ export default function Home() {
           GERENTE<strong>{name}</strong>
         </div>
       </header>
-      <section className="progress reveal">
-        <span>PLANIFICACIÓN</span>
-        <b>Obra {Math.min(selected.length + 1, 3)} de 3</b>
-        <div>
-          <i style={{ width: `${(selected.length / 3) * 100}%` }} />
-        </div>
-      </section>
       <section className="game-grid">
         <div className="board reveal">
           <svg
@@ -350,12 +343,6 @@ export default function Home() {
               </g>
             ))}
           </svg>
-          <div className="legend">
-            <span>● Pozos</span>
-            <span>● Barrios</span>
-            <span>━ Disponible</span>
-            <span>━ Ejecutada</span>
-          </div>
         </div>
         <aside>
           <div className="status reveal">
