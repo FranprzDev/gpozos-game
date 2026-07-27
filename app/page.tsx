@@ -286,18 +286,7 @@ export default function Home() {
               <b>11</b> barrios
             </span>
           </div>
-          <label>
-            Nombre del gerente
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && begin()}
-              placeholder="Escribí tu nombre"
-            />
-          </label>
-          <button disabled={!name.trim()} onClick={begin}>
-            Comenzar planificación →
-          </button>
+          <div className="start-field"><label>Nombre del gerente<input value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && begin()} placeholder="Escribí tu nombre" /></label><button aria-label="Comenzar planificación" disabled={!name.trim()} onClick={begin}>→</button></div>
         </div>
         <div className="landing-art">
           <div className="art-kicker">SISTEMA DE SOPORTE A LA DECISIÓN <span>01 / 03</span></div>
