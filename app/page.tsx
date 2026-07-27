@@ -149,8 +149,6 @@ const edges: Edge[] = [
 })) as Edge[];
 const budget = 175000000;
 const fmtMoney = (n: number) => `$${Math.round(n / 1000000)}M`;
-const fmt = (ms: number) =>
-  `${String(Math.floor(ms / 60000)).padStart(2, "0")}:${String(Math.floor(ms / 1000) % 60).padStart(2, "0")}`;
 export default function Home() {
   const [name, setName] = useState("");
   const [started, setStarted] = useState(false);
