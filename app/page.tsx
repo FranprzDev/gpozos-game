@@ -167,7 +167,6 @@ export default function Home() {
   const total = chosen.reduce((n, e) => n + e.cost, 0);
   const coverage = chosen.reduce((n, e) => n + e.coverage, 0);
   const matches = chosen.filter((e) => e.optimal).length;
-  const deficit = Math.max(0, 5000 - coverage);
   const current = candidate ? edges.find((e) => e.id === candidate) : null;
   useGSAP(
     () => {
@@ -344,51 +343,6 @@ export default function Home() {
             ))}
           </svg>
         </div>
-        <aside>
-          <div className="status reveal">
-            <span className="eyebrow">PRESUPUESTO</span>
-            <strong>{fmtMoney(budget - total)}</strong>
-            <small>disponible de $175M</small>
-          </div>
-          <div className="rounds reveal">
-            {[0, 1, 2].map((i) => (
-              <div
-                className={
-                  selected[i] ? "done" : i === selected.length ? "now" : ""
-                }
-                key={i}
-              >
-                <b>{selected[i] ? "✓" : i + 1}</b>
-                <span>
-                  {selected[i]
-                    ? edges
-                        .find((e) => e.id === selected[i])!
-                        .id.replaceAll("-", " → ")
-                    : i === selected.length
-                      ? "Elegí una obra"
-                      : "Pendiente"}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div className="metrics reveal">
-            <div>
-              <span>COBERTURA ESTIMADA</span>
-              <b>{coverage.toLocaleString("es-AR")} hab.</b>
-            </div>
-            <div>
-              <span>COINCIDENCIAS PL</span>
-              <b>{matches} / 3</b>
-            </div>
-            <div>
-              <span>DÉFICIT ESTIMADO</span>
-              <b>{deficit.toLocaleString("es-AR")} hab.</b>
-            </div>
-          </div>
-          <a className="text-link" href="/ranking">
-            Ver ranking de gerentes →
-          </a>
-        </aside>
       </section>
       {flowingEdge && !saved && (
         <div className="upgrade-banner" role="status">
