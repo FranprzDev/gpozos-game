@@ -272,8 +272,8 @@ export default function Home() {
           </h1>
           <p>
             Sos gerente de planificación de la SAT. Elegí exactamente tres
-            tuberías para mejorar la red de Pozo 45, Pozo 138, Pozo 122 y Pozo
-            41.
+            tuberías para mejorar la red de Delfín Gallo: Pozo 45, Pozo 138,
+            Pozo 122 y Pozo 41.
           </p>
           <div className="intro-facts">
             <span>
@@ -302,6 +302,7 @@ export default function Home() {
         <div className="landing-art">
           <div className="art-kicker">SISTEMA DE SOPORTE A LA DECISIÓN <span>01 / 03</span></div>
           <div className="sun" />
+          <div className="well-hero" aria-hidden="true"><div className="well-head"><i /><i /><i /></div><div className="well-shaft"><span>POZO 45</span><b /></div><div className="well-water" /></div>
           <div className="art-orbit orbit-one" /><div className="art-orbit orbit-two" />
           <svg className="landing-network" viewBox="0 0 500 560" aria-hidden="true"><g className="landing-pipes"><path d="M92 105L180 220L105 365" /><path d="M250 105L180 220L315 350L250 470" /><path d="M408 105L315 350L410 445" /><path d="M92 105L315 350" /><path d="M250 105L105 365" /></g><g className="landing-nodes"><circle cx="92" cy="105" r="15"/><circle cx="250" cy="105" r="15"/><circle cx="408" cy="105" r="15"/><circle cx="180" cy="220" r="11"/><circle cx="105" cy="365" r="11"/><circle cx="315" cy="350" r="11"/><circle cx="410" cy="445" r="11"/></g></svg>
           <div className="art-label label-top">RED DE POZOS<br /><b>DELFÍN GALLO</b></div>
