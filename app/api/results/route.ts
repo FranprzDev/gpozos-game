@@ -18,7 +18,7 @@ export function GET() {
 export async function POST(request: Request) {
   const body = await request.json();
   const selected = Array.isArray(body.selectedEdges) ? body.selectedEdges.filter((id: unknown) => typeof id === "string") : [];
-  if (typeof body.playerName !== "string" || !body.playerName.trim() || body.status !== "completed" || selected.length !== 3 || new Set(selected).size !== 3 || selected.some(id => !validEdgeIds.has(id)) || !Number.isFinite(body.timeMs) || !Number.isFinite(body.totalCost) || !Number.isFinite(body.coverage) || !Number.isFinite(body.deficit) || !Number.isFinite(body.matches)) return NextResponse.json({ error: "Datos inválidos" }, { status: 400 });
+  if (typeof body.playerName !== "string" || !body.playerName.trim() || body.status !== "completed" || selected.length !== 3 || new Set(selected).size !== 3 || selected.some((id: string) => !validEdgeIds.has(id)) || !Number.isFinite(body.timeMs) || !Number.isFinite(body.totalCost) || !Number.isFinite(body.coverage) || !Number.isFinite(body.deficit) || !Number.isFinite(body.matches)) return NextResponse.json({ error: "Datos inválidos" }, { status: 400 });
   const info = db.prepare("INSERT INTO results (player_name,time_ms,attempts,status,created_at,selected_edges,total_cost,coverage,deficit,matches) VALUES (?,?,?,?,?,?,?,?,?,?)").run(body.playerName.trim().slice(0, 80), Math.max(0, Math.round(body.timeMs)), 3, "completed", new Date().toISOString(), JSON.stringify(selected), Math.max(0, Math.round(body.totalCost)), Math.max(0, Math.round(body.coverage)), Math.max(0, Math.round(body.deficit)), Math.max(0, Math.min(3, Math.round(body.matches))));
   return NextResponse.json(db.prepare("SELECT * FROM results WHERE id = ?").get(info.lastInsertRowid), { status: 201 });
 }
