@@ -158,6 +158,7 @@ export default function Home() {
   const [candidate, setCandidate] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [saved, setSaved] = useState(false);
+  const [replay, setReplay] = useState(0);
   const [flowingEdge, setFlowingEdge] = useState<string | null>(null);
   const scope = useRef<HTMLElement>(null);
   const startRef = useRef(0);
@@ -225,7 +226,7 @@ export default function Home() {
         },
       );
     },
-    { scope, dependencies: [saved] },
+    { scope, dependencies: [saved, replay] },
   );
   const begin = () => {
     if (name.trim()) {
@@ -457,13 +458,13 @@ export default function Home() {
       )}
       {saved && (
         <section className="result-stage">
-          <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>Ahora comparemos tu plan con el ideal.</h2><p>Primero aparece tu recorrido. Después, las tres obras que encontró el modelo.</p></div>
+          <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>El modelo encontró esta combinación.</h2><p>Volvé a reproducir la animación para ver cómo el agua recorre las tres obras seleccionadas.</p></div>
           <svg className="result-network" viewBox="0 0 100 100" aria-label="Comparación entre tu plan y la solución ideal">
             {edges.map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <line key={e.id} className={`result-line ${selected.includes(e.id) ? "player-line" : "ghost-line"}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />; })}
             {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <line key={`ideal-${e.id}`} className="ideal-line" x1={a.x} y1={a.y} x2={b.x} y2={b.y} />; })}
             {nodes.map(n => <g key={n.id} className={`result-node ${n.kind}`}>{n.kind === "well" ? <circle cx={n.x} cy={n.y} r={3.7} /> : <path className="house-marker" d={`M ${n.x - 3.8} ${n.y + 1} L ${n.x} ${n.y - 3} L ${n.x + 3.8} ${n.y + 1} V ${n.y + 4} H ${n.x - 3.8} Z`} />}<text x={n.x} y={n.y + (n.kind === "well" ? -6 : 7)}>{n.label}</text></g>)}
           </svg>
-          <div className="result-bottom"><div className="ideal-plan"><div className="ideal-reveal">Pozo 45 <b>→</b> El Paraíso</div><div className="ideal-reveal">Pozo 138 <b>→</b> San Lorenzo</div><div className="ideal-reveal">Pozo 41 <b>→</b> El Bosque</div></div><div className="result-actions"><strong>{matches} / 3 coincidencias</strong><a className="confirm final-link" href="/ranking">Ver ranking →</a><button className="cancel" onClick={() => location.reload()}>Jugar de nuevo</button></div></div>
+          <div className="result-bottom"><div className="ideal-plan"><div className="ideal-reveal">Pozo 45 <b>→</b> El Paraíso</div><div className="ideal-reveal">Pozo 138 <b>→</b> San Lorenzo</div><div className="ideal-reveal">Pozo 41 <b>→</b> El Bosque</div></div><div className="result-actions"><strong>{matches} / 3 coincidencias</strong><button className="replay-button" onClick={() => setReplay(value => value + 1)}>↻ Reproducir animación</button><a className="confirm final-link" href="/ranking">Ver ranking →</a><button className="cancel" onClick={() => location.reload()}>Jugar de nuevo</button></div></div>
         </section>
       )}
     </main>
