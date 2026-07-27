@@ -147,7 +147,6 @@ const edges: Edge[] = [
   optimal: Boolean(optimal),
   simulated: !optimal,
 })) as Edge[];
-const budget = 175000000;
 const fmtMoney = (n: number) => `$${Math.round(n / 1000000)}M`;
 export default function Home() {
   const [name, setName] = useState("");
