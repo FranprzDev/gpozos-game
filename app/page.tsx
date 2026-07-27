@@ -158,6 +158,7 @@ export default function Home() {
   const [candidate, setCandidate] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [saved, setSaved] = useState(false);
+  const [flowingEdge, setFlowingEdge] = useState<string | null>(null);
   const scope = useRef<HTMLElement>(null);
   const startRef = useRef(0);
   const chosen = useMemo(
@@ -236,6 +237,8 @@ export default function Home() {
     if (!current) return;
     const next = [...selected, current.id];
     setSelected(next);
+    setFlowingEdge(current.id);
+    window.setTimeout(() => setFlowingEdge(null), 1800);
     setCandidate(null);
     if (next.length === 3) {
       const timeMs = elapsed;
@@ -355,7 +358,7 @@ export default function Home() {
               return (
                 <line
                   key={e.id}
-                  className={`pipe ${locked ? "locked" : ""} ${candidate === e.id ? "active" : ""}`}
+                  className={`pipe ${locked ? "locked" : ""} ${flowingEdge === e.id ? "flowing" : ""} ${candidate === e.id ? "active" : ""}`}
                   x1={a.x}
                   y1={a.y}
                   x2={b.x}
@@ -428,6 +431,13 @@ export default function Home() {
           </a>
         </aside>
       </section>
+      {flowingEdge && !saved && (
+        <div className="upgrade-banner" role="status">
+          <span className="water-drop">💧</span>
+          <div><strong>MEJORA EN EJECUCIÓN</strong><small>El agua ya está fluyendo hacia el sector beneficiado…</small></div>
+          <i><b /><b /><b /></i>
+        </div>
+      )}
       {current && (
         <div className="modal-backdrop">
           <div className="confirm-modal">
