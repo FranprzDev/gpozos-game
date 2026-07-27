@@ -206,8 +206,11 @@ export default function Home() {
     () => {
       if (!saved || !scope.current) return;
       const ideal = scope.current.querySelectorAll(".ideal-reveal");
-      if (!ideal.length) return;
+      const idealLines = scope.current.querySelectorAll(".ideal-line");
+      if (!ideal.length && !idealLines.length) return;
       const timeline = gsap.timeline();
+      if (idealLines.length) timeline.fromTo(idealLines, { strokeDashoffset: 260, opacity: 0 }, { strokeDashoffset: 0, opacity: 1, duration: 1.6, stagger: .35, ease: "power2.inOut" });
+      if (!ideal.length) return;
       timeline.fromTo(
         ideal,
         { opacity: 0, scale: 0.8, y: 20 },
@@ -459,40 +462,15 @@ export default function Home() {
         </div>
       )}
       {saved && (
-        <div className="modal-backdrop">
-          <div className="confirm-modal final">
-            <span className="eyebrow">PLAN COMPLETADO</span>
-            <h2>Tu plan está listo para comparar.</h2>
-            <p>
-              Encontraste {matches} de 3 obras del modelo de Programación
-              Lineal.
-            </p>
-            <div className="ideal-plan" aria-label="Solución ideal del modelo PL">
-              <span className="eyebrow">LA COMBINACIÓN IDEAL</span>
-              <div className="ideal-reveal">Pozo 45 <b>→</b> El Paraíso</div>
-              <div className="ideal-reveal">Pozo 138 <b>→</b> San Lorenzo</div>
-              <div className="ideal-reveal">Pozo 41 <b>→</b> El Bosque</div>
-            </div>
-            <div className="investment-data">
-              <span>
-                Costo total<strong>{fmtMoney(total)}</strong>
-              </span>
-              <span>
-                Cobertura
-                <strong>{coverage.toLocaleString("es-AR")} hab.</strong>
-              </span>
-              <span>
-                Tiempo<strong>{fmt(elapsed)}</strong>
-              </span>
-            </div>
-            <a className="confirm final-link" href="/ranking">
-              Ver resultado y ranking →
-            </a>
-            <button className="cancel" onClick={() => location.reload()}>
-              Jugar de nuevo
-            </button>
-          </div>
-        </div>
+        <section className="result-stage">
+          <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>Ahora comparemos tu plan con el ideal.</h2><p>Primero aparece tu recorrido. Después, las tres obras que encontró el modelo.</p></div>
+          <svg className="result-network" viewBox="0 0 100 100" aria-label="Comparación entre tu plan y la solución ideal">
+            {edges.map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <line key={e.id} className={`result-line ${selected.includes(e.id) ? "player-line" : "ghost-line"}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />; })}
+            {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <line key={`ideal-${e.id}`} className="ideal-line" x1={a.x} y1={a.y} x2={b.x} y2={b.y} />; })}
+            {nodes.map(n => <g key={n.id} className={`result-node ${n.kind}`}><circle cx={n.x} cy={n.y} r={n.kind === "well" ? 3.7 : 3} /><text x={n.x} y={n.y + (n.kind === "well" ? -6 : 7)}>{n.label}</text></g>)}
+          </svg>
+          <div className="result-bottom"><div className="ideal-plan"><span className="eyebrow">LA COMBINACIÓN IDEAL</span><div className="ideal-reveal">Pozo 45 <b>→</b> El Paraíso</div><div className="ideal-reveal">Pozo 138 <b>→</b> San Lorenzo</div><div className="ideal-reveal">Pozo 41 <b>→</b> El Bosque</div></div><div className="result-actions"><strong>{matches} / 3 coincidencias</strong><a className="confirm final-link" href="/ranking">Ver ranking →</a><button className="cancel" onClick={() => location.reload()}>Jugar de nuevo</button></div></div>
+        </section>
       )}
     </main>
   );
