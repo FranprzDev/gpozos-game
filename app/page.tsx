@@ -265,7 +265,6 @@ export default function Home() {
     return (
       <main className="landing">
         <div className="intro">
-          <span className="eyebrow">SAT · DESAFÍO DE PLANIFICACIÓN</span>
           <h1>
             Planificá obras
             <br />
@@ -322,7 +321,7 @@ export default function Home() {
     <main ref={scope} className="game-shell">
       <header className="reveal">
         <div className="brand">
-          ⌁ GPozos <b>·</b> SAT
+          ⌁ GPozos
         </div>
         <nav>
           <a href="/ranking">Ranking ↗</a>
