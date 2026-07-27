@@ -272,6 +272,7 @@ export default function Home() {
             tuberías para mejorar la red de Delfín Gallo: Pozo 45, Pozo 138,
             Pozo 122 y Pozo 41.
           </p>
+          <div className="mobile-flow" aria-label="Pozo, tubería y barrio"><div className="mobile-flow-item"><i className="mobile-well"/><span>Pozo</span></div><div className="mobile-water-pipe"><b/></div><div className="mobile-flow-item"><i className="mobile-house">⌂</i><span>Barrio</span></div></div>
           <div className="intro-facts">
             <span>
               <b>3</b> obras
