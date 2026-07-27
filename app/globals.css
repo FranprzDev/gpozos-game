@@ -1,4 +1,6 @@
 @import "tailwindcss";
+.mobile-flow-item:first-child:after{display:none!important}.mobile-well:after{bottom:-16px!important;height:16px!important;left:50%!important;margin-left:-2px!important;box-shadow:0 0 8px #75d9ee!important}.mobile-house:after{bottom:-22px;height:22px}.mobile-water-pipe{margin-top:48px!important}
+.mobile-flow-item:last-child{margin-top:0!important}.mobile-house{position:relative}.mobile-house:after{content:"";position:absolute;left:14px;bottom:-25px;width:4px;height:25px;border-radius:4px;background:#75d9ee;box-shadow:0 0 8px #75d9ee}
 @media(max-width:800px){.landing{height:100vh!important;min-height:0!important;overflow:hidden!important}.landing .intro{padding-top:7vh!important;padding-bottom:3vh!important}}
 .mobile-flow{align-items:flex-start!important;position:relative}.mobile-flow-item:first-child{position:relative}.mobile-flow-item:first-child:after{height:25px;bottom:-18px;width:5px;left:50%;margin-left:-2px;background:#75d9ee;border-radius:5px;box-shadow:0 0 8px #75d9ee;filter:none}.mobile-water-pipe{margin-top:50px!important;transform:none}.mobile-flow-item:last-child{margin-top:37px}
 .mobile-flow{margin-top:10px!important}
