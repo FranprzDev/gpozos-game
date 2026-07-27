@@ -310,9 +310,6 @@ export default function Home() {
         <div className="player">
           GERENTE<strong>{name}</strong>
         </div>
-        <div className="timer">
-          TIEMPO<strong>{fmt(elapsed)}</strong>
-        </div>
       </header>
       <section className="progress reveal">
         <span>PLANIFICACIÓN</span>
@@ -323,14 +320,6 @@ export default function Home() {
       </section>
       <section className="game-grid">
         <div className="board reveal">
-          <div className="board-title">
-            RED DE DISTRIBUCIÓN{" "}
-            <small>
-              {selected.length === 3
-                ? "Plan completado"
-                : "Seleccioná una tubería disponible"}
-            </small>
-          </div>
           <svg
             className="network"
             viewBox="0 0 100 100"
