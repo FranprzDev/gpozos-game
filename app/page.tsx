@@ -23,119 +23,120 @@ type Edge = {
   time: number;
   optimal?: boolean;
   simulated?: boolean;
+  lane?: number;
 };
 const nodes: Node[] = [
-  { id: "p45", label: "Pozo 45", kind: "well", x: 15, y: 12 },
-  { id: "p138", label: "Pozo 138", kind: "well", x: 50, y: 12 },
-  { id: "p122", label: "Pozo 122", kind: "well", x: 85, y: 12 },
-  { id: "p41", label: "Pozo 41", kind: "well", x: 50, y: 88 },
+  { id: "p45", label: "Pozo 45", kind: "well", x: 10, y: 14 },
+  { id: "p138", label: "Pozo 138", kind: "well", x: 110, y: 14 },
+  { id: "p122", label: "Pozo 122", kind: "well", x: 110, y: 88 },
+  { id: "p41", label: "Pozo 41", kind: "well", x: 210, y: 14 },
   {
     id: "paraiso",
     label: "El Paraíso",
     kind: "neighborhood",
-    x: 8,
-    y: 35,
+    x: 30,
+    y: 28,
     demand: 2174,
   },
   {
     id: "paraiso2",
     label: "Paraíso II",
     kind: "neighborhood",
-    x: 22,
-    y: 55,
+    x: 80,
+    y: 38,
     demand: 484,
   },
   {
     id: "wenceslao",
     label: "Wenceslao Posse",
     kind: "neighborhood",
-    x: 36,
-    y: 35,
+    x: 45,
+    y: 56,
     demand: 1344,
   },
   {
     id: "delfin",
     label: "Delfín Gallo",
     kind: "neighborhood",
-    x: 50,
-    y: 45,
+    x: 175,
+    y: 10,
     demand: 1083,
   },
   {
     id: "sanlorenzo",
     label: "San Lorenzo",
     kind: "neighborhood",
-    x: 64,
-    y: 35,
+    x: 150,
+    y: 30,
     demand: 1119,
   },
   {
     id: "carmen",
     label: "Ntra. Sra. del Carmen",
     kind: "neighborhood",
-    x: 78,
-    y: 45,
+    x: 194,
+    y: 48,
     demand: 311,
   },
   {
     id: "malvinas",
     label: "Malvinas",
     kind: "neighborhood",
-    x: 92,
-    y: 35,
+    x: 178,
+    y: 72,
     demand: 554,
   },
   {
     id: "mariano",
     label: "Mariano Moreno",
     kind: "neighborhood",
-    x: 78,
-    y: 62,
+    x: 165,
+    y: 50,
     demand: 1287,
   },
   {
     id: "bosque",
     label: "El Bosque",
     kind: "neighborhood",
-    x: 90,
-    y: 78,
+    x: 150,
+    y: 46,
     demand: 476,
   },
   {
     id: "lapila",
     label: "La Pila",
     kind: "neighborhood",
-    x: 22,
-    y: 78,
+    x: 110,
+    y: 70,
     demand: 1185,
   },
   {
     id: "viviendas",
     label: "79 Viviendas",
     kind: "neighborhood",
-    x: 50,
+    x: 70,
     y: 72,
     demand: 436,
   },
 ];
 const edges: Edge[] = [
-  ["45-paraiso", "p45", "paraiso", 49424800, 90, 2174, 0, 18, true],
-  ["45-paraiso2", "p45", "paraiso2", 28000000, 70, 484, 0, 15],
-  ["45-wenceslao", "p45", "wenceslao", 35000000, 85, 1344, 0, 20],
-  ["138-paraiso", "p138", "paraiso", 31000000, 88, 2174, 0, 19],
-  ["138-paraiso2", "p138", "paraiso2", 30000000, 75, 484, 0, 18],
-  ["138-sanlorenzo", "p138", "sanlorenzo", 31616000, 80, 1119, 0, 17, true],
-  ["138-wenceslao", "p138", "wenceslao", 33000000, 82, 1344, 0, 19],
-  ["138-bosque", "p138", "bosque", 42000000, 75, 476, 0, 22],
-  ["122-lapila", "p122", "lapila", 30000000, 90, 1185, 0, 16],
-  ["122-malvinas", "p122", "malvinas", 36000000, 85, 554, 0, 20],
-  ["122-viviendas", "p122", "viviendas", 39000000, 70, 436, 0, 22],
-  ["41-carmen", "p41", "carmen", 24000000, 110, 311, 0, 13],
-  ["41-delfin", "p41", "delfin", 27000000, 95, 1083, 0, 15],
-  ["41-bosque", "p41", "bosque", 60582400, 90, 476, 0, 14, true],
-  ["41-mariano", "p41", "mariano", 34000000, 85, 1287, 0, 18],
-  ["41-sanlorenzo", "p41", "sanlorenzo", 38000000, 80, 1119, 0, 20],
-].map(([id, from, to, cost, capacity, coverage, deficit, time, optimal]) => ({
+  ["45-paraiso", "p45", "paraiso", 49424800, 90, 2174, 0, 18, true, -2],
+  ["45-paraiso2", "p45", "paraiso2", 28000000, 70, 484, 0, 15, false, -1],
+  ["45-wenceslao", "p45", "wenceslao", 35000000, 85, 1344, 0, 20, false, 1],
+  ["138-paraiso", "p138", "paraiso", 31000000, 88, 2174, 0, 19, false, -2],
+  ["138-paraiso2", "p138", "paraiso2", 30000000, 75, 484, 0, 18, false, -1],
+  ["138-sanlorenzo", "p138", "sanlorenzo", 31616000, 80, 1119, 0, 17, true, 1],
+  ["138-wenceslao", "p138", "wenceslao", 33000000, 82, 1344, 0, 19, false, 2],
+  ["138-bosque", "p138", "bosque", 42000000, 75, 476, 0, 22, false, 3],
+  ["122-lapila", "p122", "lapila", 30000000, 90, 1185, 0, 16, false, -3],
+  ["122-malvinas", "p122", "malvinas", 36000000, 85, 554, 0, 20, false, -1],
+  ["122-viviendas", "p122", "viviendas", 39000000, 70, 436, 0, 22, false, 1],
+  ["41-carmen", "p41", "carmen", 24000000, 110, 311, 0, 13, false, -2],
+  ["41-delfin", "p41", "delfin", 27000000, 95, 1083, 0, 15, false, 0],
+  ["41-bosque", "p41", "bosque", 60582400, 90, 476, 0, 14, true, 3],
+  ["41-mariano", "p41", "mariano", 34000000, 85, 1287, 0, 18, false, 2],
+  ["41-sanlorenzo", "p41", "sanlorenzo", 38000000, 80, 1119, 0, 20, false, 1],
+].map(([id, from, to, cost, capacity, coverage, deficit, time, optimal, lane]) => ({
   id,
   from,
   to,
@@ -146,7 +147,17 @@ const edges: Edge[] = [
   time,
   optimal: Boolean(optimal),
   simulated: !optimal,
+  lane: Number(lane) || 0,
 })) as Edge[];
+const edgePath = (a: Node, b: Node, lane = 0) => {
+  const mx = (a.x + b.x) / 2;
+  const my = (a.y + b.y) / 2;
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const length = Math.max(1, Math.hypot(dx, dy));
+  const bend = lane * 2.2;
+  return `M ${a.x} ${a.y} Q ${mx - (dy / length) * bend} ${my + (dx / length) * bend} ${b.x} ${b.y}`;
+};
 const fmtMoney = (n: number) => `$${Math.round(n / 1000000)}M`;
 export default function Home() {
   const [name, setName] = useState("");
@@ -259,7 +270,7 @@ export default function Home() {
     }
   };
   if (!started)
-    return (
+      return (
       <main className="landing">
         <div className="intro">
           <h1>
@@ -310,27 +321,26 @@ export default function Home() {
       </header>
       <section className="game-grid">
         <div className="board reveal">
+          <div className="board-title"><span>ELEGÍ 3 OBRAS PARA MEJORAR LA RED</span><small>Hacé clic en una tubería para ver su impacto y confirmá la inversión.</small></div>
           <svg
             className="network"
-            viewBox="0 0 100 100"
+            viewBox="0 0 220 100"
             aria-label="Mapa de tuberías de la red"
           >
+            <defs>
+              <marker id="water-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="3" markerHeight="3" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#8ca8a2" />
+              </marker>
+            </defs>
             {edges.map((e) => {
               const a = nodes.find((n) => n.id === e.from)!;
               const b = nodes.find((n) => n.id === e.to)!;
               const locked = selected.includes(e.id);
               return (
-                <line
-                  key={e.id}
-                  className={`pipe ${locked ? "locked" : ""} ${flowingEdge === e.id ? "flowing" : ""} ${candidate === e.id ? "active" : ""}`}
-                  x1={a.x}
-                  y1={a.y}
-                  x2={b.x}
-                  y2={b.y}
-                  onClick={() =>
-                    !locked && selected.length < 3 && setCandidate(e.id)
-                  }
-                />
+                <g key={e.id} className="pipe-hit-area" onClick={() => !locked && selected.length < 3 && setCandidate(e.id)}>
+                  <path className="pipe-hit-target" d={edgePath(a, b, e.lane)} />
+                  <path className={`pipe ${locked ? "locked" : ""} ${flowingEdge === e.id ? "flowing" : ""} ${candidate === e.id ? "active" : ""}`} d={edgePath(a, b, e.lane)} />
+                </g>
               );
             })}
             {nodes.map((n) => (
