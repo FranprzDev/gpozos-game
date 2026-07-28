@@ -172,7 +172,6 @@ export default function Home() {
   const [elapsed, setElapsed] = useState(0);
   const [saved, setSaved] = useState(false);
   const [showResultChoice, setShowResultChoice] = useState(false);
-  const [replay, setReplay] = useState(0);
   const [flowingEdge, setFlowingEdge] = useState<string | null>(null);
   const scope = useRef<HTMLElement>(null);
   const startRef = useRef(0);
@@ -239,7 +238,7 @@ export default function Home() {
         },
       );
     },
-    { scope, dependencies: [saved, replay] },
+    { scope, dependencies: [saved] },
   );
   const begin = () => {
     if (name.trim()) {
@@ -496,7 +495,7 @@ export default function Home() {
       {saved && (
         <section className="result-stage">
           <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>{matches === 3 ? "¡Perfecto!" : "Casi, pero no…"}</h2><p>{matches === 3 ? "Diste con la misma combinación que el modelo." : "El modelo encontró una combinación mucho más óptima."}</p><small>La solución prioriza cobertura y reducción del déficit dentro del presupuesto disponible.</small></div>
-          <div className="board-title result-board-title"><span>ELEGÍ 3 OBRAS PARA MEJORAR LA RED</span><small>Tu configuración y la solución óptima del modelo.</small></div>
+          <div className="board-title result-board-title"><span>La configuración ideal es la siguiente:</span></div>
           <svg className="network result-network" viewBox="0 0 220 100" aria-label="Comparación entre tu plan y la solución ideal">
             {edges.map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; const chosen = selected.includes(e.id); const match = chosen && e.optimal; return <path key={e.id} className={`pipe ${match ? "player-match" : chosen ? "player-miss" : ""}`} d={edgePath(a, b, e.lane)} />; })}
             {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={`ideal-${e.id}`} className="ideal-line" d={edgePath(a, b, e.lane)} />; })}
