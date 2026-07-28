@@ -73,3 +73,4 @@ html:has(.game-shell),body:has(.game-shell){background:#102e2b;min-height:100%;o
   .game-shell .board-title small{width:100%;font-size:10px;line-height:1.35}
   .result-network{height:auto;aspect-ratio:1/1;min-height:0}
 }
+.player-reveal{padding:7px 0;color:#f5f4ed;font-weight:bold}.model-label{display:block;margin-top:12px;padding-top:10px;border-top:1px solid #4b877b;color:#e9ad65;font-size:11px;text-transform:uppercase;letter-spacing:.8px}.result-network .result-node text{font-size:4.8px}.result-network .result-node circle{r:6}.result-network .house-marker{transform:scale(1.35);transform-origin:center}
