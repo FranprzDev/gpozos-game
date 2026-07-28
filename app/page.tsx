@@ -292,8 +292,7 @@ export default function Home() {
       return new Path2D(edgePath(a, b, e.lane));
     });
     for (let frame = 0; frame < 14; frame += 1) {
-      context.fillStyle = "#164844";
-      context.fillRect(0, 0, width, height);
+      context.clearRect(0, 0, width, height);
       context.save();
       context.scale(scale, scale);
       context.lineCap = "round";
@@ -329,8 +328,9 @@ export default function Home() {
       });
       context.restore();
       const pixels = context.getImageData(0, 0, width, height).data;
-      const palette = quantize(pixels, 256);
-      encoder.writeFrame(applyPalette(pixels, palette), width, height, { palette, delay: 90 });
+      const palette = quantize(pixels, 255, { format: "rgba", oneBitAlpha: true });
+      const transparentIndex = Math.max(0, palette.findIndex((color) => color[3] === 0));
+      encoder.writeFrame(applyPalette(pixels, palette, { format: "rgba" }), width, height, { palette, delay: 90, transparent: true, transparentIndex });
     }
     encoder.finish();
     const blob = new Blob([encoder.bytes().buffer as ArrayBuffer], { type: "image/gif" });
