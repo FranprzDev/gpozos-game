@@ -268,7 +268,7 @@ export default function Home() {
       return `<path class="pipe" d="${edgePath(a, b, e.lane)}"/>`;
     }).join("");
     const selectedNodes = nodes.map((n) => `<g class="node"><circle cx="${n.x}" cy="${n.y}" r="${n.kind === "well" ? 4.8 : 3.8}"/><text x="${n.x}" y="${n.y + 7}">${n.label}</text></g>`).join("");
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 100"><rect width="220" height="100" fill="#164844"/><style>.pipe{fill:none;stroke:#8de4f5;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:8 5;animation:flow 1.4s linear infinite}.node circle{fill:#ffd966;stroke:#f5f4ed;stroke-width:1}.node:first-child circle,.node:nth-child(2) circle,.node:nth-child(3) circle,.node:nth-child(4) circle{fill:#8fd3f4}.node text{font:700 3px Arial;fill:#f5f4ed;text-anchor:middle}@keyframes flow{to{stroke-dashoffset:-26}}</style>${selectedEdges}${selectedNodes}</svg>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 100"><style>.pipe{fill:none;stroke:#00bcf2;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:8 5;animation:flow 1.4s linear infinite}.node circle{fill:#b1e3fa;stroke:#e1ffff;stroke-width:1}.node:first-child circle,.node:nth-child(2) circle,.node:nth-child(3) circle,.node:nth-child(4) circle{fill:#4ec9f5}.node text{font:700 3px Arial;fill:#2c5ead;text-anchor:middle}@keyframes flow{to{stroke-dashoffset:-26}}</style>${selectedEdges}${selectedNodes}</svg>`;
     const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
     const link = document.createElement("a");
     link.href = url;
@@ -297,7 +297,7 @@ export default function Home() {
       context.scale(scale, scale);
       context.lineCap = "round";
       context.lineWidth = 1.3;
-      context.strokeStyle = "#486f6b";
+      context.strokeStyle = "#36a9e1";
       edges.forEach((e) => {
         const a = nodes.find((n) => n.id === e.from)!;
         const b = nodes.find((n) => n.id === e.to)!;
@@ -306,7 +306,7 @@ export default function Home() {
       });
       context.setLineDash([8, 5]);
       context.lineWidth = 2.2;
-      context.strokeStyle = "#8de4f5";
+      context.strokeStyle = "#00bcf2";
       context.globalAlpha = 1;
       selectedPaths.forEach((path) => {
         context.lineDashOffset = -frame * 3;
@@ -314,14 +314,14 @@ export default function Home() {
       });
       nodes.forEach((n) => {
         context.setLineDash([]);
-        context.fillStyle = n.kind === "well" ? "#8fd3f4" : "#ffd966";
-        context.strokeStyle = "#f5f4ed";
+        context.fillStyle = n.kind === "well" ? "#4ec9f5" : "#b1e3fa";
+        context.strokeStyle = "#e1ffff";
         context.lineWidth = 1;
         context.beginPath();
         context.arc(n.x, n.y, n.kind === "well" ? 4.8 : 3.8, 0, Math.PI * 2);
         context.fill();
         context.stroke();
-        context.fillStyle = "#f5f4ed";
+        context.fillStyle = "#2c5ead";
         context.font = "700 3px Arial";
         context.textAlign = "center";
         context.fillText(n.label, n.x, n.y + 7);
