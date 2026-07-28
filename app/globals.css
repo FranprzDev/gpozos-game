@@ -82,3 +82,8 @@ html:has(.game-shell),body:has(.game-shell){background:#102e2b;min-height:100%;o
   .result-stage .result-heading,.result-stage .result-network,.result-stage .result-bottom{width:calc(100% - 350px);max-width:none;margin-left:0;margin-right:0}
   .result-stage .result-network{height:min(68vh,780px);aspect-ratio:220 / 100}
 }
+@media(min-width:801px){
+  .result-stage{padding:clamp(28px,4vw,56px) clamp(24px,5vw,80px)}
+  .result-stage .result-heading,.result-stage .result-network,.result-stage .result-bottom{width:100%;max-width:none}
+  .result-stage .result-network{height:min(68vh,780px);min-height:480px}
+}

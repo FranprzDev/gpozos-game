@@ -2,6 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { GIFEncoder, applyPalette, quantize } from "gifenc";
 import { useMemo, useRef, useState } from "react";
 
 type Node = {
@@ -286,6 +287,71 @@ export default function Home() {
     link.click();
     URL.revokeObjectURL(url);
   };
+  const downloadGif = async () => {
+    const width = 880;
+    const height = 400;
+    const scale = width / 220;
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+    const encoder = GIFEncoder();
+    const selectedPaths = chosen.map((e) => {
+      const a = nodes.find((n) => n.id === e.from)!;
+      const b = nodes.find((n) => n.id === e.to)!;
+      return new Path2D(edgePath(a, b, e.lane));
+    });
+    for (let frame = 0; frame < 14; frame += 1) {
+      context.fillStyle = "#164844";
+      context.fillRect(0, 0, width, height);
+      context.save();
+      context.scale(scale, scale);
+      context.lineCap = "round";
+      context.lineWidth = 1.3;
+      context.strokeStyle = "#486f6b";
+      edges.forEach((e) => {
+        const a = nodes.find((n) => n.id === e.from)!;
+        const b = nodes.find((n) => n.id === e.to)!;
+        context.globalAlpha = selected.includes(e.id) ? 0.25 : 0.18;
+        context.stroke(new Path2D(edgePath(a, b, e.lane)));
+      });
+      context.setLineDash([8, 5]);
+      context.lineWidth = 2.2;
+      context.strokeStyle = "#8de4f5";
+      context.globalAlpha = 1;
+      selectedPaths.forEach((path) => {
+        context.lineDashOffset = -frame * 3;
+        context.stroke(path);
+      });
+      nodes.forEach((n) => {
+        context.setLineDash([]);
+        context.fillStyle = n.kind === "well" ? "#8fd3f4" : "#ffd966";
+        context.strokeStyle = "#f5f4ed";
+        context.lineWidth = 1;
+        context.beginPath();
+        context.arc(n.x, n.y, n.kind === "well" ? 4.8 : 3.8, 0, Math.PI * 2);
+        context.fill();
+        context.stroke();
+        context.fillStyle = "#f5f4ed";
+        context.font = "700 3px Arial";
+        context.textAlign = "center";
+        context.fillText(n.label, n.x, n.y + 7);
+      });
+      context.restore();
+      const pixels = context.getImageData(0, 0, width, height).data;
+      const palette = quantize(pixels, 256);
+      encoder.writeFrame(applyPalette(pixels, palette), width, height, { palette, delay: 90 });
+    }
+    encoder.finish();
+    const blob = new Blob([encoder.bytes().buffer as ArrayBuffer], { type: "image/gif" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "mi-solucion-gpozos.gif";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
   if (!started)
       return (
       <main className="landing">
@@ -417,14 +483,15 @@ export default function Home() {
             <span className="eyebrow">OBRAS COMPLETADAS</span>
             <h2>¿Qué querés ver?</h2>
             <p>Tu solución ya está lista. Podés descargarla o comparar tu configuración con el modelo PL.</p>
-            <button className="confirm" onClick={downloadSolution}>Descargar mi solución</button>
+            <button className="confirm" onClick={downloadGif}>Descargar mi solución (.gif)</button>
+            <button className="choice-secondary" onClick={downloadSolution}>Descargar versión nítida (.svg)</button>
             <button className="choice-secondary" onClick={() => setShowResultChoice(false)}>Ver solución correcta</button>
           </div>
         </div>
       )}
       {saved && (
         <section className="result-stage">
-          <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>El modelo encontró esta combinación.</h2><p>Volvé a reproducir la animación para ver cómo el agua recorre las tres obras seleccionadas.</p></div>
+          <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>El modelo encontró esta combinación.</h2><p>Priorizó las obras que maximizan la cobertura y reducen el déficit dentro del presupuesto disponible.</p></div>
           <svg className="result-network" viewBox="0 0 220 100" aria-label="Comparación entre tu plan y la solución ideal">
             {edges.map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={e.id} className={`result-line ${selected.includes(e.id) ? "player-line" : "ghost-line"}`} d={edgePath(a, b, e.lane)} />; })}
             {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={`ideal-${e.id}`} className="ideal-line" d={edgePath(a, b, e.lane)} />; })}
