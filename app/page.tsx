@@ -297,7 +297,7 @@ export default function Home() {
       context.scale(scale, scale);
       context.lineCap = "round";
       context.lineWidth = 1.3;
-      context.strokeStyle = "#36a9e1";
+      context.strokeStyle = "#ffffff";
       edges.forEach((e) => {
         const a = nodes.find((n) => n.id === e.from)!;
         const b = nodes.find((n) => n.id === e.to)!;
