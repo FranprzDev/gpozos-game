@@ -365,6 +365,9 @@ export default function Home() {
             <span>
               <b>4</b> pozos
             </span>
+            <span>
+              <b>11</b> barrios
+            </span>
           </div>
           <div className="start-field"><label>Nombre del gerente<input value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && begin()} placeholder="Escribí tu nombre" /></label><button aria-label="Comenzar planificación" disabled={!name.trim()} onClick={begin}>→</button></div>
           <div className="mobile-flow" aria-label="Pozo, tubería y barrio"><div className="mobile-flow-item"><i className="mobile-well"/><span>Pozo</span></div><div className="mobile-water-pipe"><b/></div><div className="mobile-flow-item"><i className="mobile-house">⌂</i><span>Barrio</span></div></div>
