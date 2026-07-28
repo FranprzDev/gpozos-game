@@ -76,6 +76,7 @@ html:has(.game-shell),body:has(.game-shell){background:#102e2b;min-height:100%;o
 }
 .player-reveal{padding:7px 0;color:#f5f4ed;font-weight:bold}.model-label{display:block;margin-top:12px;padding-top:10px;border-top:1px solid #4b877b;color:#e9ad65;font-size:11px;text-transform:uppercase;letter-spacing:.8px}.result-network .result-node text{font-size:4.8px}.result-network .result-node circle{r:6}.result-network .house-marker{transform:scale(1.35);transform-origin:center}
 .result-stage .result-heading{width:min(1200px,100%);max-width:none}
+.result-stage .result-board-title{width:100%;padding:0 4px;color:#f5f4ed}
 .result-network .house-marker{transform:none!important}
 .result-heading small{display:block;margin-top:10px;color:#8eb8ae}
 .result-network .pipe{fill:none;stroke:#5caebc;stroke-width:1.5;stroke-linecap:round;vector-effect:non-scaling-stroke}.result-network .pipe.player-miss{stroke:#ef6b6b;stroke-width:3.5}.result-network .pipe.player-match{stroke:#75d9ee;stroke-width:2.5}.result-network .map-node text{font-size:2.5px;text-anchor:middle;fill:#f5f4ed;font-weight:700}.result-network .map-node circle{stroke:#fff;stroke-width:1}.result-network .map-node.well circle{fill:#8fd3f4}.result-network .map-node.neighborhood .house-marker{fill:#ffd966;stroke:#fff;stroke-width:.7}.result-network .ideal-line{fill:none;stroke:#75d9ee;stroke-width:3;stroke-linecap:round;stroke-dasharray:8 5;opacity:.95;filter:none;vector-effect:non-scaling-stroke}
@@ -88,5 +89,5 @@ html:has(.game-shell),body:has(.game-shell){background:#102e2b;min-height:100%;o
 @media(min-width:801px){
   .result-stage{padding:clamp(28px,4vw,56px) clamp(24px,5vw,80px)}
   .result-stage .result-heading,.result-stage .result-network,.result-stage .result-bottom{width:100%;max-width:none}
-  .result-stage .result-network{height:min(68vh,780px);min-height:480px}
+  .result-stage .result-network{height:clamp(540px,65vh,760px);min-height:0;margin:14px 0 0}
 }
