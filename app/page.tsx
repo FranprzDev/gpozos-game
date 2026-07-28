@@ -150,14 +150,18 @@ const edges: Edge[] = [
   simulated: !optimal,
   lane: Number(lane) || 0,
 })) as Edge[];
-const edgePath = (a: Node, b: Node, lane = 0) => {
-  const mx = (a.x + b.x) / 2;
-  const my = (a.y + b.y) / 2;
+const edgePath = (a: Node, b: Node, lane = 0, startPad = 0, endPad = 0) => {
   const dx = b.x - a.x;
   const dy = b.y - a.y;
   const length = Math.max(1, Math.hypot(dx, dy));
+  const ux = dx / length;
+  const uy = dy / length;
+  const start = { x: a.x + ux * startPad, y: a.y + uy * startPad };
+  const end = { x: b.x - ux * endPad, y: b.y - uy * endPad };
+  const mx = (start.x + end.x) / 2;
+  const my = (start.y + end.y) / 2;
   const bend = lane * 2.2;
-  return `M ${a.x} ${a.y} Q ${mx - (dy / length) * bend} ${my + (dx / length) * bend} ${b.x} ${b.y}`;
+  return `M ${start.x} ${start.y} Q ${mx - (dy / length) * bend} ${my + (dx / length) * bend} ${end.x} ${end.y}`;
 };
 const fmtMoney = (n: number) => `$${Math.round(n / 1000000)}M`;
 export default function Home() {
@@ -493,8 +497,8 @@ export default function Home() {
         <section className="result-stage">
           <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>{matches === 3 ? "¡Perfecto!" : "Casi, pero no…"}</h2><p>{matches === 3 ? "Diste con la misma combinación que el modelo." : "El modelo encontró una combinación mucho más óptima."}</p><small>La solución prioriza cobertura y reducción del déficit dentro del presupuesto disponible.</small></div>
           <svg className="network result-network" viewBox="0 0 220 100" aria-label="Comparación entre tu plan y la solución ideal">
-            {edges.map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={e.id} className={`pipe ${selected.includes(e.id) ? "locked player-choice" : ""}`} d={edgePath(a, b, e.lane)} />; })}
-            {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={`ideal-${e.id}`} className="ideal-line" d={edgePath(a, b, e.lane)} />; })}
+            {edges.map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={e.id} className={`pipe ${selected.includes(e.id) ? "locked player-choice" : ""}`} d={edgePath(a, b, e.lane, 4.2, 4.2)} />; })}
+            {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={`ideal-${e.id}`} className="ideal-line" d={edgePath(a, b, e.lane, 4.2, 4.2)} />; })}
             {nodes.map(n => <g key={n.id} className={`map-node ${n.kind}`}>{n.kind === "well" ? <circle cx={n.x} cy={n.y} r={3.7} /> : <path className="house-marker" d={`M ${n.x - 3.8} ${n.y + 1} L ${n.x} ${n.y - 3} L ${n.x + 3.8} ${n.y + 1} V ${n.y + 4} H ${n.x - 3.8} Z`} />}<text x={n.x} y={n.y + (n.kind === "well" ? -6 : 7)}>{n.label}</text></g>)}
           </svg>
           <div className="result-bottom"><div className="ideal-plan"><span>Tu configuración</span>{selected.map(id => { const e = edges.find(edge => edge.id === id)!; return <div className="player-reveal" key={`player-${id}`}>{nodes.find(n => n.id === e.from)!.label} <b>→</b> {nodes.find(n => n.id === e.to)!.label}</div>; })}<span className="model-label">Configuración óptima del modelo PL</span><div className="ideal-reveal">Pozo 45 <b>→</b> El Paraíso</div><div className="ideal-reveal">Pozo 138 <b>→</b> San Lorenzo</div><div className="ideal-reveal">Pozo 41 <b>→</b> El Bosque</div></div><div className="result-actions"><strong>{matches} / 3 coincidencias</strong><button className="replay-button" onClick={() => setReplay(value => value + 1)}>↻ Reproducir animación</button><a className="confirm final-link" href="/ranking">Ver ranking →</a><button className="cancel" onClick={() => location.reload()}>Jugar de nuevo</button></div></div>
