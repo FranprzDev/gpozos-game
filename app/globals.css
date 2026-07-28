@@ -85,6 +85,7 @@ body:has(.game-shell),body:has(.result-stage),html:has(.game-shell),html:has(.re
 .game-shell,.result-stage{background:#2c5ead;color:#ffffff}
 .game-shell .network,.result-network{background:radial-gradient(circle at 50% 42%,#18aeea,#2c5ead)!important;border-color:#4ec9f5!important}
 .game-shell .pipe{stroke:#ffffff!important}.game-shell .pipe.locked{stroke:#00bcf2!important}.game-shell .map-node text,.result-network .map-node text{fill:#ffffff!important}
+.game-shell .network .pipe:not(.locked):not(.active):not(.flowing){stroke:#ffffff!important;opacity:.78}
 .result-network .pipe.player-miss{stroke:#00bcf2}.result-network .pipe.player-match,.result-network .ideal-line{stroke:#b1e3fa}
 .ideal-plan{background:#2c5ead!important;border-color:#4ec9f5!important;color:#e1ffff!important}.ideal-reveal,.player-reveal{color:#b1e3fa!important}.model-label{color:#e1ffff!important}
 .game-shell,.result-stage,.landing-art{background:#2c5ead!important}
