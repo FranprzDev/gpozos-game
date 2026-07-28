@@ -219,24 +219,10 @@ export default function Home() {
   useGSAP(
     () => {
       if (!saved || !scope.current) return;
-      const ideal = scope.current.querySelectorAll(".ideal-reveal");
       const idealLines = scope.current.querySelectorAll(".ideal-line");
-      if (!ideal.length && !idealLines.length) return;
+      if (!idealLines.length) return;
       const timeline = gsap.timeline();
       if (idealLines.length) timeline.fromTo(idealLines, { strokeDashoffset: 260, opacity: 0 }, { strokeDashoffset: 0, opacity: 1, duration: 1.6, stagger: .35, ease: "power2.inOut" });
-      if (!ideal.length) return;
-      timeline.fromTo(
-        ideal,
-        { opacity: 0, scale: 0.8, y: 20 },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.18,
-          ease: "back.out(1.5)",
-        },
-      );
     },
     { scope, dependencies: [saved] },
   );
