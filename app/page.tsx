@@ -122,10 +122,10 @@ const nodes: Node[] = [
 ];
 const edges: Edge[] = [
   ["45-paraiso", "p45", "paraiso", 49424800, 90, 2174, 0, 18, true, -2],
-  ["45-paraiso2", "p45", "paraiso2", 28000000, 70, 484, 0, 15, false, -1],
+  ["45-paraiso2", "p45", "paraiso2", 28000000, 70, 484, 0, 15, false, -2],
   ["45-wenceslao", "p45", "wenceslao", 35000000, 85, 1344, 0, 20, false, 1],
   ["138-paraiso", "p138", "paraiso", 31000000, 88, 2174, 0, 19, false, -2],
-  ["138-paraiso2", "p138", "paraiso2", 30000000, 75, 484, 0, 18, false, -1],
+  ["138-paraiso2", "p138", "paraiso2", 30000000, 75, 484, 0, 18, false, 2],
   ["138-sanlorenzo", "p138", "sanlorenzo", 31616000, 80, 1119, 0, 17, true, 1],
   ["138-wenceslao", "p138", "wenceslao", 33000000, 82, 1344, 0, 19, false, 2],
   ["138-bosque", "p138", "bosque", 42000000, 75, 476, 0, 22, false, 3],
