@@ -166,6 +166,7 @@ export default function Home() {
   const [candidate, setCandidate] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [saved, setSaved] = useState(false);
+  const [showResultChoice, setShowResultChoice] = useState(false);
   const [replay, setReplay] = useState(0);
   const [flowingEdge, setFlowingEdge] = useState<string | null>(null);
   const scope = useRef<HTMLElement>(null);
@@ -267,7 +268,23 @@ export default function Home() {
         }),
       });
       setSaved(true);
+      setShowResultChoice(true);
     }
+  };
+  const downloadSolution = () => {
+    const selectedEdges = chosen.map((e) => {
+      const a = nodes.find((n) => n.id === e.from)!;
+      const b = nodes.find((n) => n.id === e.to)!;
+      return `<path class="pipe" d="${edgePath(a, b, e.lane)}"/>`;
+    }).join("");
+    const selectedNodes = nodes.map((n) => `<g class="node"><circle cx="${n.x}" cy="${n.y}" r="${n.kind === "well" ? 4.8 : 3.8}"/><text x="${n.x}" y="${n.y + 7}">${n.label}</text></g>`).join("");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 100"><rect width="220" height="100" fill="#164844"/><style>.pipe{fill:none;stroke:#8de4f5;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:8 5;animation:flow 1.4s linear infinite}.node circle{fill:#ffd966;stroke:#f5f4ed;stroke-width:1}.node:first-child circle,.node:nth-child(2) circle,.node:nth-child(3) circle,.node:nth-child(4) circle{fill:#8fd3f4}.node text{font:700 3px Arial;fill:#f5f4ed;text-anchor:middle}@keyframes flow{to{stroke-dashoffset:-26}}</style>${selectedEdges}${selectedNodes}</svg>`;
+    const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "mi-solucion-gpozos.svg";
+    link.click();
+    URL.revokeObjectURL(url);
   };
   if (!started)
       return (
@@ -391,6 +408,17 @@ export default function Home() {
             <button className="cancel" onClick={() => setCandidate(null)}>
               Cancelar
             </button>
+          </div>
+        </div>
+      )}
+      {showResultChoice && (
+        <div className="modal-backdrop result-choice-backdrop">
+          <div className="confirm-modal result-choice-modal">
+            <span className="eyebrow">OBRAS COMPLETADAS</span>
+            <h2>¿Qué querés ver?</h2>
+            <p>Tu solución ya está lista. Podés descargarla o comparar tu configuración con el modelo PL.</p>
+            <button className="confirm" onClick={downloadSolution}>Descargar mi solución</button>
+            <button className="choice-secondary" onClick={() => setShowResultChoice(false)}>Ver solución correcta</button>
           </div>
         </div>
       )}

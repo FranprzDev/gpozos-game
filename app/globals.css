@@ -76,6 +76,7 @@ html:has(.game-shell),body:has(.game-shell){background:#102e2b;min-height:100%;o
 }
 .player-reveal{padding:7px 0;color:#f5f4ed;font-weight:bold}.model-label{display:block;margin-top:12px;padding-top:10px;border-top:1px solid #4b877b;color:#e9ad65;font-size:11px;text-transform:uppercase;letter-spacing:.8px}.result-network .result-node text{font-size:4.8px}.result-network .result-node circle{r:6}.result-network .house-marker{transform:scale(1.35);transform-origin:center}
 .result-stage .result-heading{width:min(1200px,100%);max-width:none}
+.result-choice-modal{max-width:520px}.choice-secondary{width:100%;margin-top:10px;padding:15px;border:1px solid #1c6b67;border-radius:4px;background:transparent;color:var(--teal);font-weight:bold;cursor:pointer}
 @media(min-width:801px){
   .result-stage{padding:25px 40px}
   .result-stage .result-heading,.result-stage .result-network,.result-stage .result-bottom{width:calc(100% - 350px);max-width:none;margin-left:0;margin-right:0}
