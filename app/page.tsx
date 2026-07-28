@@ -268,7 +268,7 @@ export default function Home() {
       return `<path class="pipe" d="${edgePath(a, b, e.lane)}"/>`;
     }).join("");
     const selectedNodes = nodes.map((n) => `<g class="node"><circle cx="${n.x}" cy="${n.y}" r="${n.kind === "well" ? 4.8 : 3.8}"/><text x="${n.x}" y="${n.y + 7}">${n.label}</text></g>`).join("");
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 100"><style>.pipe{fill:none;stroke:#00bcf2;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:8 5;animation:flow 1.4s linear infinite}.node circle{fill:#b1e3fa;stroke:#e1ffff;stroke-width:1}.node:first-child circle,.node:nth-child(2) circle,.node:nth-child(3) circle,.node:nth-child(4) circle{fill:#4ec9f5}.node text{font:700 3px Arial;fill:#2c5ead;text-anchor:middle}@keyframes flow{to{stroke-dashoffset:-26}}</style>${selectedEdges}${selectedNodes}</svg>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 100"><style>.pipe{fill:none;stroke:#00bcf2;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:8 5;animation:flow 1.4s linear infinite}.node circle{fill:#b1e3fa;stroke:#e1ffff;stroke-width:1}.node:first-child circle,.node:nth-child(2) circle,.node:nth-child(3) circle,.node:nth-child(4) circle{fill:#4ec9f5}.node text{font:4px Arial;fill:#2c5ead;text-anchor:middle}@keyframes flow{to{stroke-dashoffset:-26}}</style>${selectedEdges}${selectedNodes}</svg>`;
     const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
     const link = document.createElement("a");
     link.href = url;
@@ -322,7 +322,7 @@ export default function Home() {
         context.fill();
         context.stroke();
         context.fillStyle = "#2c5ead";
-        context.font = "700 3px Arial";
+        context.font = "4px Arial";
         context.textAlign = "center";
         context.fillText(n.label, n.x, n.y + 7);
       });
@@ -487,7 +487,7 @@ export default function Home() {
             {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={`ideal-${e.id}`} className="ideal-line" d={edgePath(a, b, e.lane)} />; })}
             {nodes.map(n => <g key={n.id} className={`map-node ${n.kind}`}>{n.kind === "well" ? <circle cx={n.x} cy={n.y} r={3.7} /> : <path className="house-marker" d={`M ${n.x - 3.8} ${n.y + 1} L ${n.x} ${n.y - 3} L ${n.x + 3.8} ${n.y + 1} V ${n.y + 4} H ${n.x - 3.8} Z`} />}<text x={n.x} y={n.y + (n.kind === "well" ? -6 : 7)}>{n.label}</text></g>)}
           </svg>
-          <div className="result-bottom"><div className="ideal-plan"><span>Tu configuración</span>{selected.map(id => { const e = edges.find(edge => edge.id === id)!; return <div className="player-reveal" key={`player-${id}`}>{nodes.find(n => n.id === e.from)!.label} <b>→</b> {nodes.find(n => n.id === e.to)!.label}</div>; })}<span className="model-label">Configuración óptima del modelo PL ({matches}/3 coincidencias)</span><div className="ideal-reveal">Pozo 45 <b>→</b> El Paraíso</div><div className="ideal-reveal">Pozo 138 <b>→</b> San Lorenzo</div><div className="ideal-reveal">Pozo 41 <b>→</b> El Bosque</div></div><div className="result-actions"><button className="cancel" onClick={() => location.reload()}>Jugar de nuevo</button><button className="replay-button" onClick={downloadGif}>↓ Descargar animación</button><a className="confirm final-link" href="/ranking">Ver ranking →</a></div></div>
+          <div className="result-bottom"><div className="ideal-plan"><span>Tu configuración</span>{selected.map(id => { const e = edges.find(edge => edge.id === id)!; return <div className="player-reveal" key={`player-${id}`}>{nodes.find(n => n.id === e.from)!.label} <b>→</b> {nodes.find(n => n.id === e.to)!.label}</div>; })}<span className="model-label">Configuración óptima del modelo PL ({matches}/3 coincidencias)</span>{edges.filter(e => e.optimal).map(e => <div className="ideal-reveal" key={`ideal-text-${e.id}`}>{nodes.find(n => n.id === e.from)!.label} <b>→</b> {nodes.find(n => n.id === e.to)!.label}</div>)}</div><div className="result-actions"><button className="cancel" onClick={() => location.reload()}>Jugar de nuevo</button><button className="replay-button" onClick={downloadGif}>↓ Descargar animación</button><a className="confirm final-link" href="/ranking">Ver ranking →</a></div></div>
         </section>
       )}
     </main>
