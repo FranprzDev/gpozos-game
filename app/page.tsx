@@ -363,7 +363,7 @@ export default function Home() {
               <b>$175M</b> presupuesto
             </span>
             <span>
-              <b>11</b> barrios
+              <b>4</b> pozos
             </span>
           </div>
           <div className="start-field"><label>Nombre del gerente<input value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && begin()} placeholder="Escribí tu nombre" /></label><button aria-label="Comenzar planificación" disabled={!name.trim()} onClick={begin}>→</button></div>
