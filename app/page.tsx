@@ -337,7 +337,7 @@ export default function Home() {
               const b = nodes.find((n) => n.id === e.to)!;
               const locked = selected.includes(e.id);
               return (
-                <g key={e.id} className="pipe-hit-area" onClick={() => !locked && selected.length < 3 && setCandidate(e.id)}>
+                <g key={e.id} className={`pipe-hit-area ${flowingEdge ? "disabled" : ""}`} onClick={() => !locked && !flowingEdge && selected.length < 3 && setCandidate(e.id)}>
                   <path className="pipe-hit-target" d={edgePath(a, b, e.lane)} />
                   <path className={`pipe ${locked ? "locked" : ""} ${flowingEdge === e.id ? "flowing" : ""} ${candidate === e.id ? "active" : ""}`} d={edgePath(a, b, e.lane)} />
                 </g>

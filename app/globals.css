@@ -56,6 +56,7 @@ html:has(.game-shell),body:has(.game-shell){background:#102e2b;min-height:100%;o
 .pipe-hit-area{cursor:pointer}
 .pipe-hit-target{fill:none;stroke:transparent;stroke-width:10;vector-effect:non-scaling-stroke;pointer-events:stroke}
 .pipe-hit-area .pipe{pointer-events:none}
+.pipe-hit-area.disabled{pointer-events:none;cursor:wait}
 .board-title{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
 .board-title small{font-size:11px;font-weight:normal;letter-spacing:0;color:#b9d4cc}
 .game-shell .map-node text,.result-node text{paint-order:normal;stroke:none;text-shadow:none}
