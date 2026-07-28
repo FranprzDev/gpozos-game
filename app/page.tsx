@@ -491,7 +491,7 @@ export default function Home() {
       )}
       {saved && (
         <section className="result-stage">
-          <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>El modelo encontró esta combinación.</h2><p>Priorizó las obras que maximizan la cobertura y reducen el déficit dentro del presupuesto disponible.</p></div>
+          <div className="result-heading"><span className="eyebrow">REVELACIÓN DEL MODELO PL</span><h2>{matches === 3 ? "¡Perfecto!" : "Casi, pero no…"}</h2><p>{matches === 3 ? "Diste con la misma combinación que el modelo." : "El modelo encontró una combinación mucho más óptima."}</p><small>La solución prioriza cobertura y reducción del déficit dentro del presupuesto disponible.</small></div>
           <svg className="network result-network" viewBox="0 0 220 100" aria-label="Comparación entre tu plan y la solución ideal">
             {edges.map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={e.id} className={`pipe ${selected.includes(e.id) ? "locked player-choice" : ""}`} d={edgePath(a, b, e.lane)} />; })}
             {edges.filter(e => e.optimal).map(e => { const a = nodes.find(n => n.id === e.from)!; const b = nodes.find(n => n.id === e.to)!; return <path key={`ideal-${e.id}`} className="ideal-line" d={edgePath(a, b, e.lane)} />; })}
