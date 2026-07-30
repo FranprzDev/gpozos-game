@@ -54,6 +54,21 @@ html:has(.game-shell),body:has(.game-shell){background:#102e2b;min-height:100%;o
 
 /* Keep the visual stroke narrow, but make every investment easy to tap. */
 .pipe-hit-area{cursor:pointer}
+
+/* The ranking shares the landing/game palette instead of using a separate dark theme. */
+body:has(.ranking-page){background:var(--cream);color:var(--ink)}
+.ranking-page{background:var(--cream);color:var(--ink)}
+.ranking-page header{border-color:#d8ddd6}
+.ranking-page .brand{color:var(--ink)}
+.ranking-page .ranking-hero h1{color:var(--ink)}
+.ranking-page .ranking-hero p{color:var(--muted)}
+.ranking-page .ranking-table{background:#fff;border-color:#edf0eb;box-shadow:0 8px 30px #213c3610}
+.ranking-page .ranking-table table{color:var(--ink)}
+.ranking-page .ranking-table th{color:var(--muted)}
+.ranking-page .ranking-table td,.ranking-page .ranking-table th{border-color:#edf0eb}
+.ranking-page .ranking-table td:first-child{color:var(--orange)}
+.ranking-page a{color:var(--teal)}
+.ranking-page .empty{color:var(--muted)}
 .pipe-hit-target{fill:none;stroke:transparent;stroke-width:10;vector-effect:non-scaling-stroke;pointer-events:stroke}
 .pipe-hit-area .pipe{pointer-events:none}
 .pipe-hit-area.disabled{pointer-events:none;cursor:wait}
