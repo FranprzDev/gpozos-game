@@ -357,10 +357,13 @@ export default function Home() {
           </p>
           <div className="intro-facts">
             <span>
+              <b>$175M</b> presupuesto
+            </span>
+            <span>
               <b>3</b> obras
             </span>
             <span>
-              <b>$175M</b> presupuesto
+              <b>4</b> pozos
             </span>
             <span>
               <b>11</b> barrios
