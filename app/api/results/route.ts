@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ensureResultsTable, pool } from "@/lib/db";
+import { db_desactivated } from "@/lib/config";
 
 const validEdgeIds = new Set([
   "45-paraiso", "45-paraiso2", "45-wenceslao", "138-paraiso", "138-paraiso2",
@@ -8,6 +9,7 @@ const validEdgeIds = new Set([
 ]);
 
 export async function GET() {
+  if (db_desactivated) return NextResponse.json({ error: "Ranking desactivado" }, { status: 503 });
   await ensureResultsTable();
   const { rows } = await pool.query(`
     SELECT id, player_name, time_ms, attempts, status, created_at,
@@ -20,6 +22,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (db_desactivated) return NextResponse.json({ error: "Persistencia desactivada" }, { status: 503 });
   const body = await request.json();
   const selected = Array.isArray(body.selectedEdges)
     ? body.selectedEdges.filter((id: unknown): id is string => typeof id === "string")
