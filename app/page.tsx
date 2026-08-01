@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { GIFEncoder, applyPalette, quantize } from "gifenc";
 import { useMemo, useRef, useState } from "react";
+import { db_desactivated } from "@/lib/config";
 
 type Node = {
   id: string;
@@ -242,7 +243,7 @@ export default function Home() {
     if (next.length === 3) {
       const timeMs = elapsed;
       setElapsed(timeMs);
-      await fetch("/api/results", {
+      if (!db_desactivated) await fetch("/api/results", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
